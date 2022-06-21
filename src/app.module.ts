@@ -9,8 +9,28 @@ import { RedisModule } from './redis/redis.module';
 import { ClickhouseModule } from './clickhouse/clickhouse.module';
 import { OssModule } from './oss/oss.module';
 
+/**
+ * TODO: 调试不同的模块，打开相应的注释
+ */
 @Module({
-  imports: [CatsModule, DogsModule, CommonModule, GlobalModule, RedisModule, ClickhouseModule, OssModule],
+  imports: [
+    CatsModule,
+    DogsModule,
+    CommonModule,
+    GlobalModule,
+    RedisModule,
+    // ClickhouseModule,
+    // OssModule.forRootAsync({
+    //   async useFactory() {
+    //     return {
+    //       host: '',
+    //       accessKey: '',
+    //       secretKey: '',
+    //       defaultBucket: '',
+    //     };
+    //   },
+    // }),
+  ],
   controllers: [AppController],
   providers: [AppService],
 })

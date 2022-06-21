@@ -1,8 +1,9 @@
-import { Module, DynamicModule } from '@nestjs/common';
+import { Module, DynamicModule, Global } from '@nestjs/common';
 import { OssOption, OssAsyncOption } from './oss.interface';
 import { OssService } from './oss.service';
 import { OssController } from './oss.controller';
 
+@Global()
 @Module({})
 export class OssModule {
   static register(option: OssOption): DynamicModule {

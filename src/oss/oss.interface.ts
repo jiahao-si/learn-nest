@@ -1,7 +1,11 @@
 /** @format */
 import { Readable, Writable } from 'stream';
 import { ModuleMetadata } from '@nestjs/common/interfaces';
-export type ACLType = 'private' | 'public-read' | 'public-read-write' | 'authenticated-read';
+export type ACLType =
+  | 'private'
+  | 'public-read'
+  | 'public-read-write'
+  | 'authenticated-read';
 
 export interface OssOption {
   accessKey: string;
@@ -20,10 +24,13 @@ export interface BucketInfo {
   creationDate?: number;
 }
 
+/**
+ * TODO: 使用包提供的类型定义
+ */
 export interface PutObjectParams {
   bucket: string;
   name: string;
-  body: Buffer | string | Writable;
+  body: Buffer | string | Readable;
   expires: Date; // 到期时间戳
 }
 

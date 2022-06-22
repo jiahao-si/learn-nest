@@ -52,7 +52,9 @@ export class OssService {
    */
   public async putObject(params: PutObjectParams): Promise<PutObjectRes> {
     return new Promise((resolve, reject) => {
-      this.s3Client.putObject(
+      // s3.upload method： Uploads an arbitrarily sized buffer, blob, or stream, using intelligent concurrent handling of parts if the payload is large enough.
+      // this.s3Client.putObject(
+      this.s3Client.upload(
         {
           Bucket: params.bucket,
           Key: params.name,

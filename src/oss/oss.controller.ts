@@ -3,6 +3,8 @@ import { createReadStream, createWriteStream } from 'fs';
 import { join } from 'path';
 import { OssService } from './oss.service';
 import { v4 as uuidv4 } from 'uuid';
+import { generate, parse, transform, stringify } from 'csv';
+
 @Controller('oss')
 export class OssController {
   private ossService: OssService;
@@ -16,7 +18,7 @@ export class OssController {
    * @returns
    */
   @Get('test_upload')
-  testUpload(): any {
+  testUpload(): string {
     const readStream = createReadStream(join(__dirname, 'test.csv'));
     let taskResult = null;
 
@@ -49,5 +51,55 @@ export class OssController {
     const taskId = `upload-task-${uuidv4({ offset: 8 })}`;
 
     return `already submit task, taskId: ${taskId}`;
+  }
+
+  @Get('test_csv')
+  testCSV(): any {
+    // generate({
+    //   columns: ['int', 'bool'],
+    //   delimiter: '|',
+    //   length: 5,
+    // }) // Parse the records
+    // .pipe(
+    //   parse({
+    //     delimiter: '|',
+    //   }),
+    // )
+    // Transform each value into uppercase
+    // .pipe(
+    //   transform(function (record) {
+    //     return record.map(function (value) {
+    //       return value.toUpperCase();
+    //     });
+    //   }),
+    // )
+    // Convert the object into a stream
+    // .pipe(
+    //   stringify({
+    //     quoted: true,
+    //   }),
+    // )
+    // Print the CSV stream to stdout
+    // .pipe(process.stdout);
+
+    generate({
+      length: 5,
+      objectMode: true,
+      seed: 1,
+      // headers: 2,
+      columns: 2,
+      duration: 400,
+    })
+      .pipe(
+        stringify({
+          header: true,
+          columns: {
+            year: 'birthYear',
+            phone: 'phone',
+          },
+        }),
+      )
+      .pipe(process.stdout);
+    return;
   }
 }

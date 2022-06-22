@@ -20,12 +20,6 @@ export class ClickhouseService {
 
   constructor() {
     this.chClient = clickhouse;
-    clickhouse.query(
-      'SELECT item_id,approve_status  FROM dwd_item__ads_daily_stat__di LIMIT 10',
-      (data) => {
-        console.log(data);
-      },
-    );
   }
 
   public getClient(): any {
